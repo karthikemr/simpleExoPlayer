@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         //init the player
         playerView.setPlayer(player);
 
+
         //-------------------------------------------------
         DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
         // Produces DataSource instances through which media data is loaded.
@@ -110,11 +111,9 @@ public class MainActivity extends AppCompatActivity {
         //Create media source
         Uri uri = Uri.parse(hls_url);
         Handler mainHandler = new Handler();
-        MediaSource mediaSource = new HlsMediaSource(uri,
-                dataSourceFactory, mainHandler, null);
+        MediaSource mediaSource = new HlsMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
+
         player.prepare(mediaSource);
-
-
         player.setPlayWhenReady(playWhenReady);
         player.addListener(new Player.EventListener() {
             @Override
